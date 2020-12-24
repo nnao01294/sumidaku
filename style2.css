@@ -75,4 +75,38 @@ body {
     display: none;
     cursor: pointer;
     display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 10px;
+}
+/* ラベルの左に表示させる正方形のボックス□ */
+.mycheckbox input[type="checkbox"]+label::before{
+    content: "";
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    left: 0;
+    top: 50%;
+    border: 1px solid;
+    border-color:  #b1afa5; 
+    background-color: #f0f0f0; 
+}
+/* チェックが入った時のレ点 */
+.mycheckbox input[type="checkbox"]:checked+label::after{
+    content: "";
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 18px;
+    height: 9px;
+    margin-top: -9px;
+    top: 50%;
+    left: 3px;
+    transform: rotate(-45deg);
+    border-bottom: 3px solid;
+    border-left: 3px solid;
+    border-color:  #d46671; 
 }
