@@ -2,8 +2,9 @@ var map;
 var marker;
 var a;
 var currentWindow = null;
-var markers1 = [];var markers2 = [];var markers3 = [];var markers4 = [];var markers5 = [];var markers6 = [];
+var markers1 = [];var markers2 = [];var markers3 = [];var markers4 = [];var markers5 = [];var markers6 = [];var markers7 = []
 var c1=0;var c2=0;var c3=0;var c4=0;var c5=0;var c6=0;var c7=0;
+var cl1=0;var cl2=0;var cl3=0;
 var markers = [
        {
            name: '錦糸町駅 ',
@@ -182,7 +183,9 @@ function initMap(x){
         if(x==0){
             map.data.loadGeoJson('./sumidaku.geojson');
         }
-   　  if(x==1){
+    cl1++;
+    if(cl1 %2 == 0){
+        if(x==1){//total
             for (i = 0;i < sumida_data.features.length;i++) {
                  hanzai[i] = sumida_data.features[i].properties["sumidaku-3_TOTAL"];
             }
@@ -233,121 +236,129 @@ function initMap(x){
                     });
                 };
             };
-        };
-    
-    if(x==2){//sobo
-        for (i = 0;i < sumida_data.features.length;i++) {
-             hanzai[i] = sumida_data.features[i].properties["sumidaku-3_SOBO"];
+        }else if(x==0){
+            map.data.loadGeoJson('./sumidaku.geojson');
         }
-        //console.log(hanzai);
-        
-        for (i = 0;i < sumida_data.features.length;i++) {                
-                var mydata = sumida_data.features[i].geometry.coordinates[0][0];
-                //console.log(mydata[0][0]);
-                var arrCoords = new Array();
-                for (j = 0;j < mydata.length;j++) {
-                    // 座標地をlatlng値に変換
-                    var latlng = new google.maps.LatLng(mydata[j][1], mydata[j][0]);
-                   // console.log(latlng);
-                    // latlng値を配列に退避
-                    arrCoords.push(latlng);
-                };
-           if(0==hanzai[i]){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    strokeColor: "green",//ストロークの色(16進数形式)
-                    fillColor: "green",  //塗りつぶしの色(16進数形式)
-                });
-            }else if(1 == hanzai[i]){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    strokeColor: "yellow",//ストロークの色(16進数形式)
-                    fillColor: "yellow",  //塗りつぶしの色(16進数形式)
-                }); 
-            }else if(4>=hanzai[i] && hanzai[i]>=2){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    //strokeColor: "#ffff00",//ストロークの色(16進数形式)
-                    strokeColor: "orange",
-                    //fillColor: "#ffff00",  //塗りつぶしの色(16進数形式)
-                    fillColor: "orange",
-                }); 
-            }else if(hanzai[i]>=3){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    strokeColor: "red",//ストロークの色(16進数形式)
-                    fillColor: "red",  //塗りつぶしの色(16進数形式)
-                });
-            };
-        };
-    };
-    
-    if(x==3){//shinnyu
-        for (i = 0;i < sumida_data.features.length;i++) {
-             hanzai[i] = sumida_data.features[i].properties["sumidaku-3_SHINNYU"];
-        }
-        //console.log(hanzai);
-        
-        for (i = 0;i < sumida_data.features.length;i++) {                
-                var mydata = sumida_data.features[i].geometry.coordinates[0][0];
-                //console.log(mydata[0][0]);
-                var arrCoords = new Array();
-                for (j = 0;j < mydata.length;j++) {
-                    // 座標地をlatlng値に変換
-                    var latlng = new google.maps.LatLng(mydata[j][1], mydata[j][0]);
-                   // console.log(latlng);
-                    // latlng値を配列に退避
-                    arrCoords.push(latlng);
-                };
-           if(0==hanzai[i]){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    strokeColor: "green",//ストロークの色(16進数形式)
-                    fillColor: "green",  //塗りつぶしの色(16進数形式)
-                });
-            }else if(1 == hanzai[i]){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    strokeColor: "yellow",//ストロークの色(16進数形式)
-                    fillColor: "yellow",  //塗りつぶしの色(16進数形式)
-                }); 
-            }else if(4>=hanzai[i] && hanzai[i]>=2){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    //strokeColor: "#ffff00",//ストロークの色(16進数形式)
-                    strokeColor: "orange",
-                    //fillColor: "#ffff00",  //塗りつぶしの色(16進数形式)
-                    fillColor: "orange",
-                }); 
-            }else if(hanzai[i]>=3){
-                var poly = new google.maps.Polygon({
-                    map: map,
-                    paths: arrCoords,     //閉ループを示す座標列
-                    strokeWeight: 5,       //ストローク幅(ピクセル単位)
-                    strokeColor: "red",//ストロークの色(16進数形式)
-                    fillColor: "red",  //塗りつぶしの色(16進数形式)
-                });
-            };
-        };
-    };
-};
-        
-        
+    }
+    cl2++;
+    if(cl2 %2 == 0){
+        if(x==2){//sobo
+            for (i = 0;i < sumida_data.features.length;i++) {
+                 hanzai[i] = sumida_data.features[i].properties["sumidaku-3_SOBO"];
+            }
+            //console.log(hanzai);
 
+            for (i = 0;i < sumida_data.features.length;i++) {                
+                    var mydata = sumida_data.features[i].geometry.coordinates[0][0];
+                    //console.log(mydata[0][0]);
+                    var arrCoords = new Array();
+                    for (j = 0;j < mydata.length;j++) {
+                        // 座標地をlatlng値に変換
+                        var latlng = new google.maps.LatLng(mydata[j][1], mydata[j][0]);
+                       // console.log(latlng);
+                        // latlng値を配列に退避
+                        arrCoords.push(latlng);
+                    };
+               if(0==hanzai[i]){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        strokeColor: "green",//ストロークの色(16進数形式)
+                        fillColor: "green",  //塗りつぶしの色(16進数形式)
+                    });
+                }else if(1 == hanzai[i]){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        strokeColor: "yellow",//ストロークの色(16進数形式)
+                        fillColor: "yellow",  //塗りつぶしの色(16進数形式)
+                    }); 
+                }else if(4>=hanzai[i] && hanzai[i]>=2){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        //strokeColor: "#ffff00",//ストロークの色(16進数形式)
+                        strokeColor: "orange",
+                        //fillColor: "#ffff00",  //塗りつぶしの色(16進数形式)
+                        fillColor: "orange",
+                    }); 
+                }else if(hanzai[i]>=3){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        strokeColor: "red",//ストロークの色(16進数形式)
+                        fillColor: "red",  //塗りつぶしの色(16進数形式)
+                    });
+                };
+            };
+        }else if(x==0){
+            map.data.loadGeoJson('./sumidaku.geojson');
+        }
+    }
+    cl3++;
+    if(cl3 %2 ==0){
+        if(x==3){//shinnyu
+            for (i = 0;i < sumida_data.features.length;i++) {
+                 hanzai[i] = sumida_data.features[i].properties["sumidaku-3_SHINNYU"];
+            }
+            //console.log(hanzai);
+
+            for (i = 0;i < sumida_data.features.length;i++) {                
+                    var mydata = sumida_data.features[i].geometry.coordinates[0][0];
+                    //console.log(mydata[0][0]);
+                    var arrCoords = new Array();
+                    for (j = 0;j < mydata.length;j++) {
+                        // 座標地をlatlng値に変換
+                        var latlng = new google.maps.LatLng(mydata[j][1], mydata[j][0]);
+                       // console.log(latlng);
+                        // latlng値を配列に退避
+                        arrCoords.push(latlng);
+                    };
+               if(0==hanzai[i]){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        strokeColor: "green",//ストロークの色(16進数形式)
+                        fillColor: "green",  //塗りつぶしの色(16進数形式)
+                    });
+                }else if(1 == hanzai[i]){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        strokeColor: "yellow",//ストロークの色(16進数形式)
+                        fillColor: "yellow",  //塗りつぶしの色(16進数形式)
+                    }); 
+                }else if(4>=hanzai[i] && hanzai[i]>=2){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        //strokeColor: "#ffff00",//ストロークの色(16進数形式)
+                        strokeColor: "orange",
+                        //fillColor: "#ffff00",  //塗りつぶしの色(16進数形式)
+                        fillColor: "orange",
+                    }); 
+                }else if(hanzai[i]>=3){
+                    var poly = new google.maps.Polygon({
+                        map: map,
+                        paths: arrCoords,     //閉ループを示す座標列
+                        strokeWeight: 5,       //ストローク幅(ピクセル単位)
+                        strokeColor: "red",//ストロークの色(16進数形式)
+                        fillColor: "red",  //塗りつぶしの色(16進数形式)
+                    });
+                };
+            };
+        }else if(x==0){
+                map.data.loadGeoJson('./sumidaku.geojson');
+        }
+    };
+}
 function Conveni() {
     c1++;
     if(c1 %2 !== 0){
@@ -501,21 +512,22 @@ function createMarker(name,latlng,icons,map,ave){
 function six(){
     c7++;
     if(c7 %2 !== 0){
-    for(var i=0;i<markers.length;i++){
-     var name = markers[i].name;
-     var ave = markers[i].ave;
-     var latlng = new google.maps.LatLng(markers[i].lat,markers[i].lng);
-         if(ave<70000){
-             var icons ='./train1.png';
-             createMarker(name,latlng,icons,map,ave);
-         }
-};
-    }else{for(var i=0;i<markers.length;i++){
-        createMarker(name,latlng,icons,map,ave);
-         markers[i].setMap(null);
+        for(var i=0;i<markers.length;i++){
+            var name = markers[i].name;
+            var ave = markers[i].ave;
+            var latlng = new google.maps.LatLng(markers[i].lat,markers[i].lng);
+            if(ave<70000){
+                var icons ='./train1.png';
+                createMarker(name,latlng,icons,map,ave);
+            }
+            markers7.push(marker);
+        }
+    }else{
+        for(var i=0;i<markers7.length;i++){
+            markers7[i].setMap(null);
+        }
     }
 }
-    }
 function seven(){
     for(var i=0;i<markers.length;i++){
      var name = markers[i].name;
