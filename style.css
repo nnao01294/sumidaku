@@ -18,7 +18,7 @@ body {
 .mitaka {
 position:fixed; 
 top: 40px; /* 上から10px */
-left: 890px; /* 左から20px */
+left: 50px; /* 左から20px */
 }
 
 .circle_spread_btn {
